@@ -25,8 +25,30 @@ const getStudentsById = async (req, res) => {
     }
 };
 
+const updateStudentProfile = async (req, res) => {
+    try {
+        const student = await studentService.upadateStudentProfile(req.body, req.file);
+        res.status(200).json(student);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+
+const deleteStudent = async (req, res) => {
+    try {
+        const student = await studentService.deleteStudent(req.params.id);
+        res.status(200).json(student);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+
 
 module.exports = {
     createStudent,
     getStudentsById,
+    updateStudentProfile,
+    deleteStudent
 };

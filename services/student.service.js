@@ -40,8 +40,38 @@ const getStudentsById = async (id) => {
     return student
 }
 
+const upadateStudentProfile = async (data, file) => {
+    const formattedDate = moment(data.birthdate, 'DD/MM/YYYY').toISOString();
+    const profilePicture = file ? path.join('uploads', file.filename) : null;
+    const student = await Student.update({
+        first_name: data.first_name,
+        last_name: data.last_name,
+        phone_number: data.phone_number,
+        address: data.address,
+        nationality: data.nationality,
+        birthdate: formattedDate,
+        sex: data.sex,
+        profile_picture: profilePicture
+    }, {
+        where: {
+            id: data.id
+        }
+    })
+    return student
+}
+
+const deleteStudent = async (id) => {
+    const student = await Student.destroy({
+        where: {
+            id: id
+        }
+    })
+    return student
+}
 
 module.exports = {
     createStudentProfile,
-    getStudentsById
+    getStudentsById,
+    upadateStudentProfile,
+    deleteStudent
 }

@@ -1,5 +1,5 @@
 const express = require('express');
-const { createStudent, getStudentsById } = require('../controllers/student.controller');
+const { createStudent, getStudentsById, updateStudentProfile, deleteStudent } = require('../controllers/student.controller');
 const { upload } = require('../middlewares/multer.middleware');
 const { check } = require('express-validator');
 const { validate } = require('../middlewares/validations.middleware');
@@ -22,7 +22,17 @@ router.post('/', [
     createStudent 
 ]);
 
+
+router.post('/profile', [
+    upload.single('profile_picture'),
+    validate,
+    updateStudentProfile
+]);
+
+
 router.get('/:id', authenticate, getStudentsById);
+
+router.delete('/:id', authenticate, deleteStudent);
 
 
 module.exports = router;
