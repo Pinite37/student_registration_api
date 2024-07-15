@@ -28,9 +28,9 @@ This API manages student admissions and course registrations for universities. I
 ## Installation
 1. Clone the repository:
 
-    - Copier le codegit clone   
-    ``https://github.com/Pinite37/student_registration_api.git``  
-    ``cd votreprojet``  
+    - Copier le code       
+    ``git clone https://github.com/Pinite37/student_registration_api.git``  
+    ``cd student_registration_api``  
 2. Install dependencies:
 
     Copier le code  
