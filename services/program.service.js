@@ -11,8 +11,8 @@ const createProgram = async (programData) => {
 
 const updateProgram = async (programId, programData) => {
     try {
-        const program = await Program.findByIdAndUpdate(programId, programData, { new: true });
-        return program;
+        const program = await Program.update(programData, { where: { id: programId } });
+        return await Program.findById(programId);
     } catch (error) {
         throw new Error(error);
     }
@@ -20,7 +20,11 @@ const updateProgram = async (programId, programData) => {
 
 const deleteProgram = async (programId) => {
     try {
-        const program = await Program.findByIdAndDelete(programId);
+        const program = await Program.destroy({
+            where: {
+                id: programId
+            }
+        });
         return program;
     } catch (error) {
         throw new Error(error);
