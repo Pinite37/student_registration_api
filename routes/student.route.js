@@ -1,9 +1,9 @@
 const express = require('express');
-const { createStudent, getStudentsById, updateStudentProfile, deleteStudent } = require('../controllers/student.controller');
+const { createStudent, getStudentsById, upadateStudentProfile, deleteStudent } = require('../controllers/student.controller');
 const { upload } = require('../middlewares/multer.middleware');
 const { check } = require('express-validator');
 const { validate } = require('../middlewares/validations.middleware');
-const { authenticate } = require('../middlewares/auth.middleware');
+const { authenticate, isAdmin } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
@@ -23,14 +23,16 @@ router.post('/', [
 ]);
 
 
-router.post('/profile', [
+
+router.post('/:id/profile', [
     upload.single('profile_picture'),
+    authenticate,
+    check('first_name', 'First name is required').notEmpty(),
     validate,
-    updateStudentProfile
-]);
+    upadateStudentProfile
+])
 
-
-router.get('/:id', authenticate, getStudentsById);
+router.get('/:id', authenticate, isAdmin, getStudentsById);
 
 router.delete('/:id', authenticate, deleteStudent);
 

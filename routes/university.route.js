@@ -1,5 +1,5 @@
 const express = require('express');
-const { create, getAll, getById,  } = require('../controllers/universitys.controller');
+const { create, getAll, getById, deleteUniversity  } = require('../controllers/universitys.controller');
 const { upload } = require('../middlewares/multer.middleware');
 const { check } = require('express-validator');
 const { validate  } = require('../middlewares/validations.middleware');
@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.post('/', [
     authenticate,
-    isAdmin,
     upload.single('logo'),
     check('name', 'Name is required').not().isEmpty(),
     check('address', 'Address is required').not().isEmpty(),
@@ -19,8 +18,9 @@ router.post('/', [
     create
 ]);
 
-router.get('/', authenticate, isAdmin, getAll);
-router.get('/:id', authenticate, isAdmin, getById);
+router.get('/', authenticate, getAll);
+router.get('/:id', authenticate, getById);
+router.delete('/:id', authenticate, isAdmin, deleteUniversity);
 
 
 module.exports = router;

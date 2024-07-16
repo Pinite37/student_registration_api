@@ -21,8 +21,17 @@ const getUniversityById = async (id) => {
     return await University.findByPk(id);
 }
 
+const deleteUniversity = async (id) => {
+    return await University.destroy({
+        where: {
+            id: id
+        }
+    });
+}
+
 module.exports = {
     createUniversity,
     getAllUniversities,
-    getUniversityById
+    getUniversityById,
+    deleteUniversity
 }

@@ -40,23 +40,22 @@ const getStudentsById = async (id) => {
     return student
 }
 
-const upadateStudentProfile = async (data, file) => {
-    const formattedDate = moment(data.birthdate, 'DD/MM/YYYY').toISOString();
-    const profilePicture = file ? path.join('uploads', file.filename) : null;
-    const student = await Student.update({
-        first_name: data.first_name,
-        last_name: data.last_name,
-        phone_number: data.phone_number,
-        address: data.address,
-        nationality: data.nationality,
-        birthdate: formattedDate,
-        sex: data.sex,
-        profile_picture: profilePicture
-    }, {
-        where: {
-            id: data.id
+const upadateStudentProfile = async (id, data, file) => {
+    const student = await Student.findByPk(id)
+    if (file) {
+        if (student.profile_picture) {
+            fs.unlinkSync(student.profile_picture);
         }
-    })
+        student.profile_picture = path.join('uploads', file.filename);
+    }
+    student.first_name = data.first_name
+    student.last_name = data.last_name
+    student.phone_number = data.phone_number
+    student.address = data.address
+    student.nationality = data.nationality
+    student.birthdate = data.birthdate
+    student.sex = data.sex
+    await student.save()
     return student
 }
 

@@ -36,9 +36,22 @@ const getById = async (req, res) => {
     }
 };
 
+const deleteUniversity = async (req, res) => {
+    try {
+        const university = await universityService.deleteUniversity(req.params.id);
+        if (!university) {
+            return res.status(404).json({ message: 'University not found' });
+        }
+        res.status(200).json({ message: 'University deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 
 module.exports = {
     create,
     getAll,
-    getById
+    getById,
+    deleteUniversity
 };
