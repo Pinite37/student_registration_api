@@ -31,10 +31,11 @@ const getDegreeById = async (req, res) => {
 }
 
 const deleteDegree = async (req, res) => {
-    try{
-        const degree = await degreeServices.deleteDegree(req.params.id);
-        res.status(200).json("Deleted Successfully", degree);
+    try {
+        const deletedDegree = await degreeServices.deleteDegree(req.params.id);
+        res.status(200).json({ message: "Degree deleted successfully", deletedDegree });
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error: error.message });
     }
 }
