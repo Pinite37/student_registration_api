@@ -1,6 +1,12 @@
 const validate = (schema) => (req, res, next) => {
     try {
-        schema.parse(req.body)
+
+        if(schema ) {
+            schema.parse(req.body)
+        }else {
+            
+        }
+
         next()
     } catch (error) {
         res.status(400).json({ error: error.errors })

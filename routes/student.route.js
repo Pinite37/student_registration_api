@@ -24,7 +24,7 @@ router.post('/:id/profile', [
     upadateStudentProfile
 ])
 
-router.get('/:id', authenticate, isAdmin, getStudentsById);
+router.get('/:id', authenticate, getStudentsById);
 
 router.delete('/:id', authenticate, deleteStudent);
 
