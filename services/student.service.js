@@ -30,9 +30,8 @@ const createStudentProfile = async (data, file) => {
         profile_picture: profilePicture
     });
 
-    const token = generateToken({ id: user._id, role: user.role })
 
-    return { student, token };
+    return { student };
 }
 
 const getStudentsById = async (id) => {
