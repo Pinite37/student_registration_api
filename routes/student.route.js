@@ -20,7 +20,7 @@ router.post('/:id/profile', [
     upload.single('profile_picture'),
     authenticate,
     check('first_name', 'First name is required').notEmpty(),
-    validate,
+    validate(userSchema),
     upadateStudentProfile
 ])
 

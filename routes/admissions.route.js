@@ -6,7 +6,7 @@ const { validate } = require('../middlewares/validations.middleware');
 
 const router = express.Router();
 
-router.post('/', upload.single('id_card'), authenticate, validate, create);
-router.patch('/:admissionId/status', authenticate, isAdmin, validate, updateStatus);
+router.post('/', upload.single('id_card'), authenticate, validate(), create);
+router.patch('/:admissionId/status', authenticate, isAdmin, validate(), updateStatus);
 
 module.exports = router;

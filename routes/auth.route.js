@@ -10,7 +10,7 @@ router.post('/register', [
     check('email', 'Email is required').isEmail(),
     check('password').isLength({ min: 6 }),
     check('role').isIn(['student', 'admin']),
-    validate
+    validate()
 ], register);
 
 router.post('/login', [

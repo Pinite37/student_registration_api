@@ -5,7 +5,7 @@ const { validate } = require('../middlewares/validations.middleware');
 
 const router = express.Router();
 
-router.post('/', authenticate, isAdmin, validate, create);
+router.post('/', authenticate, isAdmin, validate(), create);
 
 
 module.exports = router;

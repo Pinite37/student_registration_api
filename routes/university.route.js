@@ -14,7 +14,7 @@ router.post('/', [
     check('address', 'Address is required').not().isEmpty(),
     check('description', 'Description is required').not().isEmpty(),
     check('country', 'Country is required').not().isEmpty(),
-    validate,
+    validate(),
     create
 ]);
 
