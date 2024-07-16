@@ -10,14 +10,12 @@ const path = require('path')
 const createStudentProfile = async (data, file) => {
     const hashedPassword = await bcrypt.hash(data.password, 10)
     const formattedDate = moment(data.birthdate, 'DD/MM/YYYY').toISOString();
-    console.log(formattedDate)
     const user = await User.create({
         email: data.email,
         password: hashedPassword,
         role: 'student'
     })
     const profilePicture = file ? path.join('uploads', file.filename) : null;
-    console.log(profilePicture)
     const student = await Student.create({
         user_id: user.id,
         first_name: data.first_name,
