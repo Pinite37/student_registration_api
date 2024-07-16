@@ -3,6 +3,7 @@ const { sequelize } = require('../utils/db');
 const Student = require('./student.model');
 const Degree = require('./degree.model');
 const University = require('./university.model');
+const Program = require('./program.model');
 
 
 const Admission = sequelize.define('Admission', {
@@ -39,6 +40,14 @@ const Admission = sequelize.define('Admission', {
         type: DataTypes.FLOAT,
         allowNull: false,
     },
+    program_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: Program,
+            key: 'id'
+        }
+    },
     degree_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -68,5 +77,8 @@ Admission.belongsTo(University, { foreignKey: 'university_id' });
 
 Degree.hasMany(Admission, { foreignKey: 'degree_id' });
 Admission.belongsTo(Degree, { foreignKey: 'degree_id' });
+
+Program.hasMany(Admission, { foreignKey: 'program_id' });
+Admission.belongsTo(Program, { foreignKey: 'program_id' });
 
 module.exports = Admission;

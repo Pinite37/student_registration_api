@@ -3,7 +3,7 @@ const path = require('path');
 
 
 const create = async (req, res) => {
-    const { student_id, university_id, cover_letter, latest_graduation_year, average_score, degree_id } = req.body;
+    const { student_id, university_id, cover_letter, latest_graduation_year, average_score, program_id, degree_id } = req.body;
 
     const id_card = req.file ? req.file.path : null;
 
@@ -14,6 +14,7 @@ const create = async (req, res) => {
             cover_letter,
             latest_graduation_year,
             average_score,
+            program_id,
             degree_id,
             id_card
         });
