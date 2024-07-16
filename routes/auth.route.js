@@ -16,7 +16,7 @@ router.post('/register', [
 router.post('/login', [
     check('email', 'Email is required').isEmail(),
     check('password').exists(),
-    validate
+    validate()
 ], login);
 
 module.exports = router;

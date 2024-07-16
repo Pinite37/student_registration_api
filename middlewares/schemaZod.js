@@ -2,7 +2,7 @@ const { z } = require('zod');
 
 const userSchema = z.object({
     email: z.string().email({ message: 'Email is required' }),
-    password: z.string().min(6, 'Password must be at least 8 characters long'),
+    password: z.string({message: 'Password is required'}).min(6, 'Password must be at least 8 characters long'),
     first_name: z.string().min(1, 'First name is required'),
     last_name: z.string().min(1, 'Last name is required'),
     phone_number: z.string().min(1, 'Phone number is required'),
