@@ -91,3 +91,7 @@ This API manages student admissions and course registrations for universities. I
 
 ### Course Registration
 - **POST : registration/**: Apply student admission to a course if her admission to university is approved
+
+
+## API LINK
+https://student-registration-api-w3xo.onrender.com/

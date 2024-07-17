@@ -12,12 +12,11 @@ const createProgram = async (programData) => {
 const updateProgram = async (programId, programData) => {
     try {
         const program = await Program.update(programData, { where: { id: programId } });
-        return await Program.findById(programId);
+        return await Program.findByPk(programId);
     } catch (error) {
         throw new Error(error);
     }
 };
-
 const deleteProgram = async (programId) => {
     try {
         const program = await Program.destroy({
