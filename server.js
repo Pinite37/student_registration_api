@@ -1,38 +1,58 @@
-const express = require('express');
-const dotenv = require('dotenv');
+const express = require("express");
+const dotenv = require("dotenv");
 //const cors = require('cors');
-const { sequelize } = require('./utils/db');
-const authRoutes = require('./routes/auth.route');
-const userRoutes = require('./routes/student.route');
-const universityRoutes = require('./routes/university.route');
-const degreeRoutes = require('./routes/degree.route');
-const programRoutes = require('./routes/program.route');
-const courseRoutes = require('./routes/course.route');
-const admissionRoutes = require('./routes/admissions.route');
-const courseRegistrationRoutes = require('./routes/courseRegistration.route');
+const { sequelize } = require("./utils/db");
+
+const authRoutes = require("./routes/auth.route");
+const userRoutes = require("./routes/student.route");
+const universityRoutes = require("./routes/university.route");
+const degreeRoutes = require("./routes/degree.route");
+const programRoutes = require("./routes/program.route");
+const courseRoutes = require("./routes/course.route");
+const admissionRoutes = require("./routes/admissions.route");
+const courseRegistrationRoutes = require("./routes/courseRegistration.route");
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use('/api/auth', authRoutes);
-app.use('/api/student', userRoutes);
-app.use('/api/university', universityRoutes);
-app.use('/api/degree', degreeRoutes);
-app.use('/api/program', programRoutes);
-app.use('/api/course', courseRoutes);
-app.use('/api/admission', admissionRoutes);
-app.use('/api/registration', courseRegistrationRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/student", userRoutes);
+app.use("/api/university", universityRoutes);
+app.use("/api/degree", degreeRoutes);
+app.use("/api/program", programRoutes);
+app.use("/api/course", courseRoutes);
+app.use("/api/admission", admissionRoutes);
+app.use("/api/registration", courseRegistrationRoutes);
 
 //app.use(cors());
 
 const PORT = process.env.PORT || 5000;
 
-sequelize.sync({ alter: true }).then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-        console.log('PostreSQL connected');
-    });
-}).catch(err => {
-    console.log(err);
-});
+sequelize
+  .sync({ alter: true })
+  .then(() => {
+    const startServer = (port) => {
+      const server = app.listen(port, () => {
+        console.log(`Server is running on port ${port}`);
+        console.log("PostreSQL connected");
+      });
+
+      server.on("error", (error) => {
+        if (error.code === "EADDRINUSE") {
+          console.log(
+            `Port ${port} is already in use.\nTrying to start server on port ${
+              port + 1
+            }`,
+          );
+          startServer(port + 1);
+        }
+      });
+    };
+
+    startServer(+PORT);
+  })
+  .catch((err) => {
+    console.log("Something happens");
+    console.log(err.code);
+  });
