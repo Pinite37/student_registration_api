@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const User = require("../models/user.model");
 
-const { generateToken } = require("../utils/jwt");
+const { generateToken } = require("./../utils/jwt");
 
 const register = async ({ email, password, role }) => {
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -21,7 +21,6 @@ const login = async ({ email, password }) => {
   const token = generateToken({ id: user.id, role: user.role });
   return { token };
 };
-
 
 module.exports = {
   register,
