@@ -53,6 +53,5 @@ sequelize
     startServer(+PORT);
   })
   .catch((err) => {
-    console.log("Something happens");
-    console.log(err.code);
+    console.log(error);
   });
