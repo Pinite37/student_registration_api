@@ -39,5 +39,5 @@ sequelize
     startServer(+PORT);
   })
   .catch((err) => {
-    console.log(error);
+    console.log(err);
   });
