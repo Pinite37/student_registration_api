@@ -9,6 +9,7 @@ This API manages student admissions and course registrations for universities. I
 - Sequelize ORM  
 - JWT Authentication  
 - Multer for file uploads  
+
 ## Features
 - Admissions Management:
     - Create new admissions
@@ -29,7 +30,9 @@ This API manages student admissions and course registrations for universities. I
 1. Clone the repository:
 
     - Copier le code       
-    ``git clone https://github.com/Pinite37/student_registration_api.git``  
+    ```sh
+    git clone https://github.com/Pinite37/student_registration_api.git
+    ```
     ``cd student_registration_api``  
 2. Install dependencies:
 
