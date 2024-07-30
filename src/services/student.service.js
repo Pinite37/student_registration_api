@@ -5,6 +5,7 @@ const { generateToken } = require("../utils/jwt");
 const moment = require("moment");
 const fs = require("fs");
 const path = require("path");
+const NotFoundException = require("../exceptions/not-found.exception");
 
 const createStudentProfile = async (data, file) => {
   const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -32,6 +33,11 @@ const createStudentProfile = async (data, file) => {
 
 const getStudentsById = async (id) => {
   const student = await Student.findByPk(id);
+
+  if (!student) {
+    throw new NotFoundException("Student not found.");
+  }
+
   return student;
 };
 
@@ -55,12 +61,21 @@ const upadateStudentProfile = async (id, data, file) => {
 };
 
 const deleteStudent = async (id) => {
-  const student = await Student.destroy({
+  await getStudentsById(id);
+
+  const deletedRows = await Student.destroy({
     where: {
-      id: id,
+      id,
     },
   });
-  return student;
+
+  if (deletedRows === 1) {
+    return { message: "Student deleted successfully." };
+  }
+  {
+    throw Error("An error occurred");
+  }
+  return deletedRows;
 };
 
 module.exports = {

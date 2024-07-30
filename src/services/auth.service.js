@@ -3,6 +3,8 @@ const User = require("../models/user.model");
 
 const { generateToken } = require("./../utils/jwt");
 
+//TODO: Create a User Service for user model manipulations
+
 const register = async ({ email, password, role }) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = await User.create({ email, password: hashedPassword, role });
@@ -12,14 +14,14 @@ const register = async ({ email, password, role }) => {
 const login = async ({ email, password }) => {
   const user = await User.findOne({ where: { email } });
   if (!user) {
-    throw new Error("Unvalid email or password");
+    throw new Error("Invalid email or password");
   }
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
     throw new Error("Invalid email or password");
   }
   const token = generateToken({ id: user.id, role: user.role });
-  return { token };
+  return { user, token };
 };
 
 module.exports = {

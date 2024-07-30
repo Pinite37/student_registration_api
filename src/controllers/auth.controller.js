@@ -1,5 +1,7 @@
 const authService = require("../services/auth.service");
 
+// ADD registration (students and univeristies) in auth controller
+
 const register = async (req, res) => {
   try {
     const { email, password, role } = req.body;

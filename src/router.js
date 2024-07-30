@@ -11,13 +11,13 @@ const courseRegistrationRoutes = require("./routes/courseRegistration.route");
 
 const router = express();
 
-router.use("auth", authRoutes);
-router.use("student", userRoutes);
-router.use("university", universityRoutes);
-router.use("degree", degreeRoutes);
-router.use("program", programRoutes);
-router.use("course", courseRoutes);
-router.use("admission", admissionRoutes);
-router.use("registration", courseRegistrationRoutes);
+router.use("/auth", authRoutes);
+router.use("/students", userRoutes);
+router.use("/university", universityRoutes);
+router.use("/degree", degreeRoutes);
+router.use("/program", programRoutes);
+router.use("/course", courseRoutes);
+router.use("/admission", admissionRoutes);
+router.use("/registration", courseRegistrationRoutes);
 
 module.exports = router;
