@@ -1,54 +1,58 @@
-const studentService = require('../services/student.service');
+const studentService = require("../services/student.service");
 
 const createStudent = async (req, res) => {
-    console.log(req.file);
-    try {
-        const student = await studentService.createStudentProfile(req.body, req.file);
-        res.status(201).json(student);
-    } catch (error) {
-        //console.log(error);
+  console.log(req.file);
+  try {
+    const student = await studentService.createStudentProfile(
+      req.body,
+      req.file,
+    );
+    res.status(201).json(student);
+  } catch (error) {
+    //console.log(error);
 
-        res.status(400).json({ message: error.message });
-    }
+    res.status(400).json({ message: error.message });
+  }
 };
 
 const getStudentsById = async (req, res) => {
-    try {
-        const student = await studentService.getStudentsById(req.params.id);
-        if (!student) {
-            res.status(404).json({ message: 'Student not found' });
-            return;
-        }
-        res.status(200).json(student);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+  try {
+    const student = await studentService.getStudentsById(req.params.id);
+    if (!student) {
+      res.status(404).json({ message: "Student not found" });
+      return;
     }
+    res.status(200).json(student);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error.message });
+  }
 };
 
 const upadateStudentProfile = async (req, res) => {
-    try {
-        const student = await studentService.upadateStudentProfile(req.params.id, req.body);
-        res.status(200).json(student);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
+  try {
+    const student = await studentService.upadateStudentProfile(
+      req.params.id,
+      req.body,
+    );
+    res.status(200).json(student);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 };
 
-
 const deleteStudent = async (req, res) => {
-    try {
-        const student = await studentService.deleteStudent(req.params.id);
-        res.status(200).json(student);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-}
-
-
+  try {
+    const student = await studentService.deleteStudent(req.params.id);
+    res.status(200).json(student);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 
 module.exports = {
-    createStudent,
-    getStudentsById,
-    upadateStudentProfile,
-    deleteStudent
+  createStudent,
+  getStudentsById,
+  upadateStudentProfile,
+  deleteStudent,
 };
