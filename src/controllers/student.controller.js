@@ -1,4 +1,5 @@
 const studentService = require("../services/student.service");
+const exceptionHandler = require("../utils/exception-handler");
 
 const createStudent = async (req, res) => {
   console.log(req.file);
@@ -24,8 +25,7 @@ const getStudentsById = async (req, res) => {
     }
     res.status(200).json(student);
   } catch (error) {
-    console.log(error);
-    res.status(400).json({ message: error.message });
+    res.status(error.statusCode).json({ message: error.message });
   }
 };
 
@@ -46,7 +46,7 @@ const deleteStudent = async (req, res) => {
     const student = await studentService.deleteStudent(req.params.id);
     res.status(200).json(student);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    exceptionHandler(res, error);
   }
 };
 
