@@ -1,6 +1,6 @@
-class NotFoundException extends Error {
+class NotFoundException extends HttpException {
   constructor(message) {
-    super(message);
+    super(404, message);
   }
 }
 
