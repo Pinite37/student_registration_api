@@ -13,6 +13,8 @@ const courseRegistrationRoutes = require('./routes/courseRegistration.route');
 
 dotenv.config();
 
+
+
 const app = express();
 app.use(express.json());
 app.use('/api/auth', authRoutes);
@@ -26,7 +28,7 @@ app.use('/api/registration', courseRegistrationRoutes);
 
 //app.use(cors());
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 sequelize.sync({ alter: true }).then(() => {
     app.listen(PORT, () => {
@@ -34,5 +36,6 @@ sequelize.sync({ alter: true }).then(() => {
         console.log('PostreSQL connected');
     });
 }).catch(err => {
+    // if(err.code === "EA")
     console.log(err);
 });

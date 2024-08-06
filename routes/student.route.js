@@ -16,7 +16,7 @@ router.post('/', [
 
 
 
-router.post('/:id/profile', [
+router.put('/:id/profile', [
     upload.single('profile_picture'),
     authenticate,
     check('first_name', 'First name is required').notEmpty(),
